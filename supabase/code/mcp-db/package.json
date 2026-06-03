@@ -1,0 +1,26 @@
+{
+  "name": "@joaocury/mcp-db",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "MCP server custom — conversa com Postgres do Supabase do mandato. Roda no servidor, expõe HTTP /mcp via Kong ou subdomínio próprio.",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.18.1",
+    "pg": "^8.13.1",
+    "tsx": "^4.19.2",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/pg": "^8.11.10",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
