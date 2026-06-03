@@ -1,0 +1,32 @@
+# =====================================================================
+# Compose isolado pro mcp joaocury-db
+# Conecta na rede external do compose Supabase (joaocury_supabase_default)
+# pra resolver o hostname 'db' (Postgres) e 'kong' (gateway Supabase).
+# =====================================================================
+name: joaocury-mcp
+
+services:
+  mcp-db:
+    build:
+      context: ./mcp-db
+    restart: unless-stopped
+    environment:
+      MCP_AUTH_TOKEN: 16e8dd5eb5c6a40fc0a610ee419e2f3be2a0f9e12dc2efdedf654ab31433c48c
+      POSTGRES_HOST: db
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_USER: supabase_admin
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      MCP_PORT: 8080
+      SUPABASE_INTERNAL_URL: http://kong:8000
+      SUPABASE_PUBLIC_URL: ${SUPABASE_PUBLIC_URL}
+      SUPABASE_FUNCTIONS_URL: http://kong:8000/functions/v1
+      SUPABASE_SERVICE_ROLE_KEY: ${SERVICE_ROLE_KEY}
+      SUPABASE_ANON_KEY: ${ANON_KEY}
+    networks:
+      - supabase-net
+
+networks:
+  supabase-net:
+    external: true
+    name: joaocury_supabase_default
