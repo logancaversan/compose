@@ -1,7 +1,11 @@
 # =====================================================================
 # Compose isolado pro mcp joaocury-db
-# Conecta na rede external do compose Supabase (joaocury_supabase_default)
-# pra resolver o hostname 'db' (Postgres) e 'kong' (gateway Supabase).
+#
+# Networks:
+#   - default     → criada pelo compose (joaocury_mcp_default), Easypanel/
+#                   Traefik roteia HTTP pra cá
+#   - supabase-net → external (joaocury_supabase_default), pra resolver
+#                    hostname 'db' (Postgres) e 'kong' (Supabase gateway)
 # =====================================================================
 name: joaocury-mcp
 
@@ -24,9 +28,11 @@ services:
       SUPABASE_SERVICE_ROLE_KEY: ${SERVICE_ROLE_KEY}
       SUPABASE_ANON_KEY: ${ANON_KEY}
     networks:
+      - default
       - supabase-net
 
 networks:
+  default:
   supabase-net:
     external: true
     name: joaocury_supabase_default
